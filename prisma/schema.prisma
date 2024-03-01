@@ -1,0 +1,46 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  firstName String
+  lastName  String
+  password  String
+  trips     Trip[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([email]) // allows for more efficient queries
+}
+
+model Trip {
+  id        String   @id @unique @default(uuid())
+  name      String?
+  city      String
+  state     String?
+  country   String
+  startDate DateTime
+  endDate   DateTime
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model VacationPackage {
+  id        String   @id @unique @default(uuid())
+  name      String
+  city      String
+  state     String
+  country   String
+  startDate DateTime
+  endDate   DateTime
+  price     Float
+}
