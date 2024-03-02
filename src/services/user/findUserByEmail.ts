@@ -1,7 +1,7 @@
 import prisma from '..'
 
 /* Finds A User In The Database By Their Email */
-export const findUserByEmail = async (email: string) => {
+const findUserByEmail = async (email: string) => {
   try {
     // find user in user table
     const foundUser = await prisma.user.findFirst({
@@ -15,3 +15,5 @@ export const findUserByEmail = async (email: string) => {
     throw error
   }
 }
+
+export default findUserByEmail

@@ -1,15 +1,15 @@
 import { NextFunction, Request, Response } from 'express'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
-import { createUser } from '../../services/user/createUser'
-import { UserSchema } from '../../models/usersModel'
+import { createUser } from '../../services'
+import { UserSchema } from '../../models/userModel'
 
 /*
  * User Route For Registering New Users
  * input - request body containing user data
  * output - status code, success message, token, and user data
  */
-export const createUserController = async (req: Request, res: Response, next: NextFunction) => {
+export const registerUserController = async (req: Request, res: Response, next: NextFunction) => {
   // validate user data before creating user
   const { success } = UserSchema.safeParse(req.body)
 

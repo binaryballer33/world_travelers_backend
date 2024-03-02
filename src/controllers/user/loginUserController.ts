@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
-import { findUserByEmail } from '../../services/user/findUserByEmail'
+import { findUserByEmail } from '../../services'
 
 /*
  * User Route For Login

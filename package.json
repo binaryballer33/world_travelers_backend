@@ -12,12 +12,13 @@
     "server": "nodemon --watch 'src/**/*' -e ts,tsx --exec 'ts-node' src/server.ts",
     "server:dev": "npm run server",
     "server:prod": "npx prisma generate && NODE_ENV=production ts-node ./src/server.ts",
-    "seed": "node ./src/services/seed.ts",
+    "seed": "ts-node ./src/services/seed.ts",
     "test": "jest"
   },
   "dependencies": {
     "@prisma/client": "^5.9.1",
     "bcrypt": "^5.1.1",
+    "chalk": "^4.1.2",
     "cors": "^2.8.5",
     "dotenv": "^16.4.3",
     "express": "^4.18.2",
