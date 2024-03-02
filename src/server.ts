@@ -1,11 +1,11 @@
 import app from './app'
 import { errorHandler } from './middleware/middleware'
-import userRouter from './routes/userRoute'
+import allRoutesRouter from './routes'
 
 const PORT = process.env.PORT
 
-// Routes
-app.use('/user', userRouter)
+// Add all routes to the app
+app.use('/', allRoutesRouter)
 
 // Error handling middleware, make sure it's the last middleware added
 app.use(errorHandler)

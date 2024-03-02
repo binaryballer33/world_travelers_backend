@@ -1,5 +1,6 @@
 import prisma, { batchCreateVacationPackages, createTrip, createUser, findUserByEmail } from '.'
 import chalk from 'chalk'
+import bcrypt from 'bcrypt'
 import { VacationPackage, Trip, User } from '../models'
 
 /* Dummy Data For Initial Users */
@@ -162,7 +163,12 @@ async function createInitialUsers() {
     console.log(chalk.yellowBright('Attempting To Create Users'))
 
     // map over the users array and create a user for each one
-    const usersCreated = await Promise.all(users.map(async (user) => createUser(user)))
+    const usersCreated = await Promise.all(
+      users.map(async (user) => {
+        user.password = await bcrypt.hash(user.password, 10)
+        return createUser(user)
+      })
+    )
 
     console.log(
       chalk.greenBright('Users Created Successfully'),

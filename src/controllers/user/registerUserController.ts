@@ -3,6 +3,7 @@ import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import { createUser } from '../../services'
 import { UserSchema } from '../../models/userModel'
+import { fromZodError } from 'zod-validation-error'
 
 /*
  * User Route For Registering New Users
@@ -11,12 +12,15 @@ import { UserSchema } from '../../models/userModel'
  */
 export const registerUserController = async (req: Request, res: Response, next: NextFunction) => {
   // validate user data before creating user
-  const { success } = UserSchema.safeParse(req.body)
+  const parsedUser = UserSchema.safeParse(req.body)
 
-  if (!success) {
-    return res
-      .status(400)
-      .json({ status: res.statusCode, message: 'Invalid User Data Received From Frontend' })
+  if (!parsedUser.success) {
+    console.error(`Invalid User Data Received From Frontend: ${fromZodError(parsedUser.error)}`)
+
+    return res.status(400).json({
+      status: res.statusCode,
+      message: `Invalid User Data Received From Frontend: ${fromZodError(parsedUser.error)}`,
+    })
   }
 
   try {
