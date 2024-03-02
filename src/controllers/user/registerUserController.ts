@@ -10,7 +10,7 @@ import { fromZodError } from 'zod-validation-error'
  * input - request body containing user data
  * output - status code, success message, token, and user data
  */
-export const registerUserController = async (req: Request, res: Response, next: NextFunction) => {
+const registerUserController = async (req: Request, res: Response, next: NextFunction) => {
   // validate user data before creating user
   const parsedUser = UserSchema.safeParse(req.body)
 
@@ -46,3 +46,5 @@ export const registerUserController = async (req: Request, res: Response, next: 
     next(error)
   }
 }
+
+export default registerUserController

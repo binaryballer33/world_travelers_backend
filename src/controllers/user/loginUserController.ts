@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from 'express'
+import e, { NextFunction, Request, Response } from 'express'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import { findUserByEmail } from '../../services'
@@ -8,7 +8,7 @@ import { findUserByEmail } from '../../services'
  * input - request body containing user email and password
  * output - status code, success message, token, and user data
  */
-export const loginUserController = async (req: Request, res: Response, next: NextFunction) => {
+const loginUserController = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { email, password } = req.body
 
@@ -59,3 +59,5 @@ export const loginUserController = async (req: Request, res: Response, next: Nex
     next(error)
   }
 }
+
+export default loginUserController

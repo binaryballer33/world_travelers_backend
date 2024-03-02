@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express'
-import { createTrip } from '../../services'
+import { updateTrip } from '../../services'
 import { TripSchema } from '../../models/tripModel'
 import { fromZodError } from 'zod-validation-error'
 
@@ -8,12 +8,11 @@ import { fromZodError } from 'zod-validation-error'
  * input - request body containing trip data
  * output - status code, success message, trip data
  */
-const createTripController = async (req: Request, res: Response, next: NextFunction) => {
+const updateTripController = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    // validate trip data before creating trip
+    const { id } = req.params
     const parsedTrip = TripSchema.safeParse(req.body)
 
-    // return error if trip data is invalid
     if (!parsedTrip.success) {
       console.error(`Invalid Trip Data Received From Frontend: ${fromZodError(parsedTrip.error)}`)
 
@@ -23,19 +22,16 @@ const createTripController = async (req: Request, res: Response, next: NextFunct
       })
     }
 
-    // create the trip
-    const createdTrip = await createTrip(req.body)
+    const updatedTrip = await updateTrip(id, req.body)
 
-    // return  trip data
     res.status(200).json({
       status: res.statusCode,
-      message: `Trip To ${createdTrip.city}, ${createdTrip.country} Created Successfully`,
-      createdTrip,
+      message: `${updatedTrip.city}, ${updatedTrip.country} Trip Updated Successfully`,
+      updatedTrip,
     })
   } catch (error) {
-    // pass error to error handling middleware
     next(error)
   }
 }
 
-export default createTripController
+export default updateTripController

@@ -1,6 +1,6 @@
 import app from './app'
 import { errorHandler } from './middleware/middleware'
-import allRoutesRouter from './routes'
+import allRoutesRouter from './routes/allRoutes'
 
 const PORT = process.env.PORT
 
