@@ -10,4 +10,11 @@ export const UserSchema = z.object({
 
 type User = z.infer<typeof UserSchema>
 
+// add id to user type so you can create tokens that will hold the data for the req.user object
+export const UserSchemaWithId = UserSchema.extend({
+  id: z.string().uuid('Invalid UUID'),
+})
+
+export type UserWithId = z.infer<typeof UserSchemaWithId>
+
 export default User

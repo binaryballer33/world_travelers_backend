@@ -2,13 +2,8 @@ import prisma from '..'
 import { Trip } from '../../models'
 
 const createTrip = async (trip: Trip) => {
-  try {
-    // create and return the trip
-    const tripCreated = await prisma.trip.create({ data: trip })
-    return tripCreated
-  } catch (error) {
-    throw error
-  }
+  // create and return the trip, try catch block is not necessary here
+  return await prisma.trip.create({ data: trip })
 }
 
 export default createTrip

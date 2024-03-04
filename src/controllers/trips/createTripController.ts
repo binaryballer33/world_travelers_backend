@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express'
 import { createTrip } from '../../services'
 import { TripSchema } from '../../models/tripModel'
-import { fromZodError } from 'zod-validation-error'
+import { returnZodErrorMessage } from '../../utils/helperFunctions'
 
 /*
  * Trip Route For Creating A New Trip
@@ -10,23 +10,13 @@ import { fromZodError } from 'zod-validation-error'
  */
 const createTripController = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    // validate trip data before creating trip
-    const parsedTrip = TripSchema.safeParse(req.body)
-
-    // return error if trip data is invalid
-    if (!parsedTrip.success) {
-      console.error(`Invalid Trip Data Received From Frontend: ${fromZodError(parsedTrip.error)}`)
-
-      return res.status(400).json({
-        status: res.statusCode,
-        message: `Invalid Trip Data Received From Frontend: ${fromZodError(parsedTrip.error)}`,
-      })
-    }
+    // validate trip data before creating trip and throw error if req.body does not match schema
+    returnZodErrorMessage(TripSchema, req, res)
 
     // create the trip
     const createdTrip = await createTrip(req.body)
 
-    // return  trip data
+    // return trip data
     res.status(200).json({
       status: res.statusCode,
       message: `Trip To ${createdTrip.city}, ${createdTrip.country} Created Successfully`,

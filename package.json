@@ -13,7 +13,8 @@
     "server:dev": "npm run server",
     "server:prod": "npx prisma generate && NODE_ENV=production ts-node ./src/server.ts",
     "seed": "ts-node ./src/services/seed.ts",
-    "test": "jest"
+    "test": "jest",
+    "debug": "NODE_OPTIONS='--inspect' ts-node ./src/server.ts"
   },
   "dependencies": {
     "@prisma/client": "^5.9.1",

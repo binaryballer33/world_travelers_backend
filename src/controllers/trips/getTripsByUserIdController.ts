@@ -2,9 +2,9 @@ import { NextFunction, Request, Response } from 'express'
 import { getTripsByUserId } from '../../services'
 
 /*
- * Trip Route For Creating A New Trip
- * input - request body containing trip data
- * output - status code, success message, trip data
+ * Trip Route For Gettign Trips By User Id
+ * input - user id from request params
+ * output - status code, success message, trips data
  */
 const getTripsByUserIdController = async (req: Request, res: Response, next: NextFunction) => {
   try {

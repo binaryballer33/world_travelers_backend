@@ -1,9 +1,8 @@
 import { NextFunction, Request, Response } from 'express'
 import bcrypt from 'bcrypt'
-import jwt from 'jsonwebtoken'
 import { createUser } from '../../services'
 import { UserSchema } from '../../models/userModel'
-import { fromZodError } from 'zod-validation-error'
+import { createJwtToken, returnZodErrorMessage } from '../../utils/helperFunctions'
 
 /*
  * User Route For Registering New Users
@@ -11,17 +10,8 @@ import { fromZodError } from 'zod-validation-error'
  * output - status code, success message, token, and user data
  */
 const registerUserController = async (req: Request, res: Response, next: NextFunction) => {
-  // validate user data before creating user
-  const parsedUser = UserSchema.safeParse(req.body)
-
-  if (!parsedUser.success) {
-    console.error(`Invalid User Data Received From Frontend: ${fromZodError(parsedUser.error)}`)
-
-    return res.status(400).json({
-      status: res.statusCode,
-      message: `Invalid User Data Received From Frontend: ${fromZodError(parsedUser.error)}`,
-    })
-  }
+  // validate user data before creating user and throw error if req.body does not match schema
+  returnZodErrorMessage(UserSchema, req, res)
 
   try {
     // hash the password before storing it in the db
@@ -31,8 +21,7 @@ const registerUserController = async (req: Request, res: Response, next: NextFun
     const createdUser = await createUser(req.body)
 
     // provide user with token so they do not need to log in after registering
-    if (!process.env.JWT) throw new Error("JWT Secret Is Not Defined, Can't Issue Token")
-    const token = jwt.sign({ id: createdUser.id }, process.env.JWT)
+    const token = createJwtToken(createdUser)
 
     // send back token and user data
     res.status(200).json({

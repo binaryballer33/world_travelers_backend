@@ -1,7 +1,8 @@
-import e, { NextFunction, Request, Response } from 'express'
+import { NextFunction, Request, Response } from 'express'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import { findUserByEmail } from '../../services'
+import { createJwtToken } from '../../utils/helperFunctions'
 
 /*
  * User Route For Login
@@ -42,9 +43,8 @@ const loginUserController = async (req: Request, res: Response, next: NextFuncti
       })
     }
 
-    // provide user with token so they do not need to log in after registering
-    if (!process.env.JWT) throw new Error("JWT Secret Is Not Defined, Can't Issue Token")
-    const token = jwt.sign({ id: foundUser.id }, process.env.JWT)
+    // provide user with token after logging in
+    const token = createJwtToken(foundUser)
 
     // send token and user data, use to store into session storage
     // send back token and user data
