@@ -1,5 +1,16 @@
 import { z } from 'zod'
 
+/* for updating user information, you can use the UserSchemaOptional type
+ * to make sure that the user can update any of the fields without having to
+ * update all of the fields.
+ */
+export const UserSchemaOptional = z.object({
+  email: z.string().email('Invalid Email Format').optional(),
+  firstName: z.string().min(1, 'First Name Must Be At Least 1 Character').optional(),
+  lastName: z.string().min(1, 'Last Name Must Be At Least 1 Character').optional(),
+  password: z.string().min(8, 'Password Must Be At Least 8 Characters').optional(),
+})
+
 // create user type using zod and infer it
 export const UserSchema = z.object({
   email: z.string().email('Invalid Email Format'),

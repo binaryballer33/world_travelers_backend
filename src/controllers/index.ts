@@ -1,5 +1,4 @@
 /* USER CONTROLLERS */
-export { default as getUserByUserIdController } from './user/getUserByUserIdController'
 export { default as registerUserController } from './user/registerUserController'
 export { default as loginUserController } from './user/loginUserController'
 export { default as updateUserController } from './user/updateUserController'

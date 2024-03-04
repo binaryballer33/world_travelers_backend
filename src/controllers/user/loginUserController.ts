@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
 import bcrypt from 'bcrypt'
-import jwt from 'jsonwebtoken'
-import { findUserByEmail } from '../../services'
+import { getUserByEmail } from '../../services'
 import { createJwtToken } from '../../utils/helperFunctions'
 
 /*
@@ -22,7 +21,7 @@ const loginUserController = async (req: Request, res: Response, next: NextFuncti
     }
 
     // see if the user exists in the db with the given email
-    const foundUser = await findUserByEmail(email)
+    const foundUser = await getUserByEmail(email)
 
     // if user not found send error message
     if (!foundUser) {

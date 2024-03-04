@@ -21,10 +21,6 @@ const deleteTripController = async (req: Request, res: Response, next: NextFunct
       // check if this trip id is one of the trips the user created
       const tripBelongsToUser = userTrips.some((trip) => trip.id === id)
 
-      console.log('req.user', req.user)
-      console.log('tripBelongsToUser', tripBelongsToUser)
-      console.log('userTrips', userTrips)
-
       // if the trip belongs to the user update the trip
       if (tripBelongsToUser) {
         const deletedTrip = await deleteTrip(id)

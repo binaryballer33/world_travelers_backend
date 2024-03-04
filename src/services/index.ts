@@ -2,9 +2,11 @@ import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 
 /* EXPORTING USER SERVICES */
-export { default as findUserByEmail } from './user/findUserByEmail'
+export { default as getUserByEmail } from './user/getUserByEmail'
+export { default as getUserById } from './user/getUserById'
 export { default as createUser } from './user/createUser'
 export { default as updateUser } from './user/updateUser'
+export { default as deleteUser } from './user/deleteUser'
 
 /* EXPORTING TRIPS SERVICES */
 export { default as createTrip } from './trips/createTrip'
