@@ -10,3 +10,7 @@ export { default as getTripsByUserIdController } from './trips/getTripsByUserIdC
 export { default as createTripController } from './trips/createTripController'
 export { default as updateTripController } from './trips/updateTripController'
 export { default as deleteTripController } from './trips/deleteTripController'
+
+/* EMAIL CONTROLLERS */
+export { default as registrationEmailController } from './email/registrationEmailController'
+export { default as purchaseConfirmationEmailController } from './email/purchaseConfirmationEmailController'

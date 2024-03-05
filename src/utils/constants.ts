@@ -14,6 +14,11 @@ export enum ROUTE {
   GET_USER_BY_ID = '/user',
   UPDATE_USER = '/update/user',
   DELETE_USER = '/delete/user',
+
+  // EMAIL ROUTES
+  EMAIL = '/email',
+  REGISTRATION_EMAIL = '/registration/email',
+  PURCHASE_CONFIRMATION_EMAIL = '/purchase/confirmation/email',
 }
 
 // TRIP ROUTES
@@ -52,4 +57,13 @@ export function getUpdateUserRoute() {
 
 export function getDeleteUserRoute() {
   return `${ROUTE.USER}${ROUTE.DELETE_USER}`
+}
+
+// EMAIL ROUTES
+export function getRegistrationEmailRoute() {
+  return `${ROUTE.EMAIL}${ROUTE.REGISTRATION_EMAIL}`
+}
+
+export function getPurchaseConfirmationEmailRoute() {
+  return `${ROUTE.EMAIL}${ROUTE.PURCHASE_CONFIRMATION_EMAIL}`
 }
