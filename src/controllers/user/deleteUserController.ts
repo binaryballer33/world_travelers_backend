@@ -10,6 +10,8 @@ const deleteUserController = async (req: Request, res: Response, next: NextFunct
   try {
     // use the req.user.id that you got from the decoded token to delete the user
     if (req.user && req.user.id) {
+      console.log('req.user.id', req.user.id)
+
       const deletedUser = await deleteUser(req.user.id)
 
       res.status(200).json({

@@ -5,13 +5,14 @@ import {
   getTripsByUserIdController,
   updateTripController,
 } from '../../controllers'
-import { protectedRoute } from '../../middleware/middleware'
+import { protectedRoute } from '../../middleware'
+import { ROUTE } from '../../utils/constants'
 
 const tripRouter = express.Router()
 
-tripRouter.get('/user/:id', protectedRoute, getTripsByUserIdController)
-tripRouter.post('/create/trip', protectedRoute, createTripController)
-tripRouter.put('/update/trip/:id', protectedRoute, updateTripController)
-tripRouter.delete('/delete/trip/:id', protectedRoute, deleteTripController)
+tripRouter.get(ROUTE.GET_TRIP_BY_USER_ID, protectedRoute, getTripsByUserIdController)
+tripRouter.post(ROUTE.CREATE_TRIP, protectedRoute, createTripController)
+tripRouter.put(ROUTE.UPDATE_TRIP, protectedRoute, updateTripController)
+tripRouter.delete(ROUTE.DELETE_TRIP, protectedRoute, deleteTripController)
 
 export default tripRouter

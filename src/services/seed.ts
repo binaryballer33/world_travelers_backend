@@ -1,4 +1,4 @@
-import prisma, { batchCreateVacationPackages, createTrip, createUser, findUserByEmail } from '.'
+import prisma, { batchCreateVacationPackages, createTrip, createUser, getUserByEmail } from '.'
 import chalk from 'chalk'
 import bcrypt from 'bcrypt'
 import { VacationPackage, Trip, User } from '../models'
@@ -186,7 +186,7 @@ async function getUserInfo() {
     // map over the users array and find the user by email
     const userIds = await Promise.all(
       users.map(async (user) => {
-        const foundUser = await findUserByEmail(user.email)
+        const foundUser = await getUserByEmail(user.email)
 
         // return an object with the user's name, email, and id
         return {
@@ -257,7 +257,7 @@ async function createInitialVacationPackages() {
 }
 
 // Rebuild the database
-async function seedDB() {
+export async function seedDB() {
   try {
     await dropTables()
     await createInitialUsers()

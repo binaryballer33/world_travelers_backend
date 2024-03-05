@@ -4,14 +4,17 @@ import {
   loginUserController,
   updateUserController,
   deleteUserController,
+  profileUserController,
 } from '../../controllers'
-import { protectedRoute } from '../../middleware/middleware'
+import { protectedRoute } from '../../middleware'
+import { ROUTE } from '../../utils/constants'
 
 const userRouter = express.Router()
 
-userRouter.post('/register', registerUserController)
-userRouter.post('/login', loginUserController)
-userRouter.put('/update/user/', protectedRoute, updateUserController)
-userRouter.delete('/delete/user/', protectedRoute, deleteUserController)
+userRouter.post(ROUTE.REGISTER, registerUserController)
+userRouter.post(ROUTE.LOGIN, loginUserController)
+userRouter.get(ROUTE.PROFILE, protectedRoute, profileUserController)
+userRouter.put(ROUTE.UPDATE_USER, protectedRoute, updateUserController)
+userRouter.delete(ROUTE.DELETE_USER, protectedRoute, deleteUserController)
 
 export default userRouter
