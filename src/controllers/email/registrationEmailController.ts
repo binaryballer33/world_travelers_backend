@@ -2,12 +2,13 @@ import { NextFunction, Request, Response } from 'express'
 import { Resend } from 'resend'
 import { returnZodErrorMessage } from '../../utils/helperFunctions'
 import { EmailSchema } from '../../models/email'
+import { RESEND_API_KEY } from '../../utils/secrets'
 
-// Create A New Welcome After User Account Registration Email
+// Create A New Welcome Email After User Account Registration Email
 const registrationEmailController = async (req: Request, res: Response, next: NextFunction) => {
   try {
     // instantiate the email send client and create the email router
-    const resend = new Resend(process.env.RESEND_API_KEY)
+    const resend = new Resend(RESEND_API_KEY)
     returnZodErrorMessage(EmailSchema, req, res) // validate email data
 
     // send the email

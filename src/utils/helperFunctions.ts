@@ -3,6 +3,7 @@ import { SafeParseReturnType, ZodObject } from 'zod'
 import { fromZodError } from 'zod-validation-error'
 import { UserWithId } from '../models/userModel'
 import jwt from 'jsonwebtoken'
+import { JWT_SECRET } from './secrets'
 
 /*
  * takes in a user object and creates a token from that user object
@@ -18,7 +19,7 @@ export function createJwtToken(user: UserWithId) {
       lastName: user.lastName,
       email: user.email,
     },
-    process.env.JWT as string
+    JWT_SECRET
   )
   return token
 }

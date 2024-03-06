@@ -20,7 +20,7 @@ const loginUserController = async (req: Request, res: Response, next: NextFuncti
       })
     }
 
-    // see if the user exists in the db with the given email
+    // see if the user exists in the db with the given email, if so return the user and their trips
     const foundUser = await getUserByEmail(email)
 
     // if user not found send error message
@@ -46,7 +46,6 @@ const loginUserController = async (req: Request, res: Response, next: NextFuncti
     const token = createJwtToken(foundUser)
 
     // send token and user data, use to store into session storage
-    // send back token and user data
     res.status(200).json({
       status: res.statusCode,
       message: `Login Successful For User: ${foundUser.firstName} ${foundUser.lastName}`,

@@ -2,15 +2,10 @@ import prisma from '..'
 import { VacationPackage } from '../../models'
 
 const batchCreateVacationPackages = async (vacationPackages: VacationPackage[]) => {
-  try {
-    const vacationPackagesCreated = await prisma.vacationPackage.createMany({
-      data: vacationPackages,
-    })
-
-    return vacationPackagesCreated
-  } catch (error) {
-    throw error
-  }
+  // create all the vacation packages in the database
+  return await prisma.vacationPackage.createMany({
+    data: vacationPackages,
+  })
 }
 
 export default batchCreateVacationPackages

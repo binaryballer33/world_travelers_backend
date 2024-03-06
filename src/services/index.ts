@@ -16,6 +16,7 @@ export { default as deleteTrip } from './trips/deleteTrip'
 
 /* EXPORTING VACATION PACKAGE SERVICES */
 export { default as batchCreateVacationPackages } from './vacationPackages/batchCreateVacationPackages'
+export { default as getAllVacationPackages } from './vacationPackages/getAllVacationPackages'
 
 /* EXPORTING PRISMA CLIENT */
 export default prisma

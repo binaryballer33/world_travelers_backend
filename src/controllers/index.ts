@@ -5,6 +5,9 @@ export { default as profileUserController } from './user/profileUserController'
 export { default as updateUserController } from './user/updateUserController'
 export { default as deleteUserController } from './user/deleteUserController'
 
+/* VACATION PACKAGE CONTROLLERS */
+export { default as vacationPackageController } from './vacationPackage/vacationPackageController'
+
 /* TRIPS CONTROLLERS */
 export { default as getTripsByUserIdController } from './trips/getTripsByUserIdController'
 export { default as createTripController } from './trips/createTripController'

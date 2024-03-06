@@ -1,4 +1,8 @@
 export enum ROUTE {
+  // VACATION PACKAGE ROUTES
+  VACATION = '/vacation',
+  VACATION_PACKAGES = '/packages',
+
   // TRIP ROUTES
   TRIPS = '/trips',
   CREATE_TRIP = '/create/trip',
@@ -19,6 +23,11 @@ export enum ROUTE {
   EMAIL = '/email',
   REGISTRATION_EMAIL = '/registration/email',
   PURCHASE_CONFIRMATION_EMAIL = '/purchase/confirmation/email',
+}
+
+// VACATION PACKAGE ROUTES
+export function getVacationPackageRoute() {
+  return `${ROUTE.VACATION}${ROUTE.VACATION_PACKAGES}`
 }
 
 // TRIP ROUTES

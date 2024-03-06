@@ -7,6 +7,10 @@ const getUserByEmail = async (email: string) => {
     where: {
       email,
     },
+    include: {
+      // include the user's trips in the response
+      trips: true,
+    },
   })
 }
 
