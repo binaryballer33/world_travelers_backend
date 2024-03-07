@@ -1,7 +1,7 @@
 import { ErrorCode, HttpException } from './HttpException'
 
 export class InternalException extends HttpException {
-  constructor(message: string, errorCode: ErrorCode, errors: any) {
-    super(message, errorCode, 500, errors)
+  constructor(message: string, error: any) {
+    super(message, ErrorCode.INTERNAL_ERROR, 500, error)
   }
 }
