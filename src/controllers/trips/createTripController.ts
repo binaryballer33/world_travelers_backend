@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
 import { createTrip } from '../../services'
-import { TripSchema } from '../../models/tripModel'
-import { returnZodErrorMessage } from '../../utils/helperFunctions'
+import Trip, { TripSchema, TripSchemaNoUserId } from '../../models/tripModel'
 
 /*
  * Trip Route For Creating A New Trip
@@ -11,10 +10,11 @@ import { returnZodErrorMessage } from '../../utils/helperFunctions'
 const createTripController = async (req: Request, res: Response, next: NextFunction) => {
   try {
     // validate trip data before creating trip and throw error if req.body does not match schema
-    returnZodErrorMessage(TripSchema, req, res)
+    const validatedTripData = TripSchemaNoUserId.parse(req.body)
 
     // create the trip
-    const createdTrip = await createTrip(req.body)
+    if (!req.user) throw new Error("Can't Find User Matching This Token")
+    const createdTrip = await createTrip({ ...validatedTripData, userId: req.user.id })
 
     // return trip data
     res.status(200).json({

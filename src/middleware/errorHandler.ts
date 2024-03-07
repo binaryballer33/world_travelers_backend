@@ -48,9 +48,10 @@ function errorHandler(err: any, _req: Request, res: Response, _next: NextFunctio
 
   // Handle General Errors
   console.error(err.stack)
-  return res
-    .status(400)
-    .json({ status: res.statusCode, message: `An Unexpected Error Occurred ${err.stack}` })
+  return res.status(400).json({
+    status: res.statusCode,
+    message: `An Unexpected Error Occurred ${err}`,
+  })
 }
 
 export default errorHandler

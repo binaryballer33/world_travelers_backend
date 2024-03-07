@@ -4,7 +4,7 @@ import { z } from 'zod'
 export const EmailSchema = z.object({
   from: z.string().min(1, 'From field cannot be empty.'),
   to: z.string().min(1, 'To field cannot be empty.'),
-  subject: z.string().optional(),
+  subject: z.string().min(1, 'Subject field cannot be empty.'),
   html: z.string().min(1, 'Html field cannot be empty.'),
 })
 

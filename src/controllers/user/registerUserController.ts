@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from 'express'
-import bcrypt from 'bcrypt'
+import { hashSync } from 'bcrypt'
 import { createUser } from '../../services'
 import { UserSchema } from '../../models/userModel'
-import { createJwtToken, returnZodErrorMessage } from '../../utils/helperFunctions'
+import { createJwtToken } from '../../utils/helperFunctions'
 
 /*
  * User Route For Registering New Users
@@ -10,15 +10,15 @@ import { createJwtToken, returnZodErrorMessage } from '../../utils/helperFunctio
  * output - status code, success message, token, and user data
  */
 const registerUserController = async (req: Request, res: Response, next: NextFunction) => {
-  // validate user data before creating user and throw error if req.body does not match schema
-  returnZodErrorMessage(UserSchema, req, res)
-
   try {
-    // hash the password before storing it in the db
-    req.body.password = await bcrypt.hash(req.body.password, 10)
+    // validate user data before creating user and throw error if req.body does not match schema
+    const validatedUserData = UserSchema.parse(req.body)
 
-    // add new user into db, req body should contain firstName, lastName, email, and password
-    const createdUser = await createUser(req.body)
+    // hash the password before storing it in the db
+    const createdUser = await createUser({
+      ...validatedUserData,
+      password: hashSync(validatedUserData.password, 10),
+    })
 
     // provide user with token so they do not need to log in after registering
     const token = createJwtToken(createdUser)

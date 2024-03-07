@@ -1,7 +1,8 @@
 import { NextFunction, Request, Response } from 'express'
-import bcrypt from 'bcrypt'
+import { compareSync } from 'bcrypt'
 import { getUserByEmail } from '../../services'
 import { createJwtToken } from '../../utils/helperFunctions'
+import { UserLoginCredentialsSchema } from '../../models/userModel'
 
 /*
  * User Route For Login
@@ -10,15 +11,9 @@ import { createJwtToken } from '../../utils/helperFunctions'
  */
 const loginUserController = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { email, password } = req.body
-
-    // check if email and password were sent
-    if (!email || !password) {
-      return res.status(400).json({
-        status: res.statusCode,
-        message: 'Please Enter Both A Email And Password',
-      })
-    }
+    // validate user data before creating user and throw error if req.body does not match schema
+    const validatedLoginCredentials = UserLoginCredentialsSchema.parse(req.body)
+    const { email, password } = validatedLoginCredentials
 
     // see if the user exists in the db with the given email, if so return the user and their trips
     const foundUser = await getUserByEmail(email)
@@ -31,8 +26,8 @@ const loginUserController = async (req: Request, res: Response, next: NextFuncti
       })
     }
 
-    // compare user db password with input password
-    const checkPassword = await bcrypt.compare(password, foundUser.password)
+    // compare user db password with validated req body password
+    const checkPassword = compareSync(password, foundUser.password)
 
     // if password don't match send error message
     if (!checkPassword) {

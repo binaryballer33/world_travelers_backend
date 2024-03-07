@@ -14,4 +14,16 @@ export const TripSchema = z.object({
 
 type Trip = z.infer<typeof TripSchema>
 
+export const TripSchemaNoUserId = z.object({
+  name: z.string().optional(),
+  city: z.string().min(1, 'City Must Be At Least 1 Character'),
+  state: z.string().optional(),
+  country: z.string().min(1, 'Country Must Be At Least 1 Character'),
+  startDate: z.string().min(1, 'Start Date Must Be At Least 1 Character'),
+  endDate: z.string().min(1, 'End Date Must Be At Least 1 Character'),
+  imageUrl: z.string().optional(),
+})
+
+export type TripNoUserId = z.infer<typeof TripSchemaNoUserId>
+
 export default Trip

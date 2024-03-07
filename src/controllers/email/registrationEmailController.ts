@@ -1,6 +1,5 @@
 import { NextFunction, Request, Response } from 'express'
 import { Resend } from 'resend'
-import { returnZodErrorMessage } from '../../utils/helperFunctions'
 import { EmailSchema } from '../../models/email'
 import { RESEND_API_KEY } from '../../utils/secrets'
 
@@ -9,10 +8,10 @@ const registrationEmailController = async (req: Request, res: Response, next: Ne
   try {
     // instantiate the email send client and create the email router
     const resend = new Resend(RESEND_API_KEY)
-    returnZodErrorMessage(EmailSchema, req, res) // validate email data
+    const validatedEmailData = EmailSchema.parse(req.body) // validate email data
 
     // send the email
-    const { to, subject, html } = req.body
+    const { to, subject, html } = validatedEmailData
     await resend.emails.send({
       from: 'shaqmandy@resend.dev',
       to,
