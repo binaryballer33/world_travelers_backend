@@ -8,19 +8,15 @@ import { getTripsByUserId } from '../../services'
  */
 const getTripsByUserIdController = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    if (req.user && req.user.id) {
-      const trips = await getTripsByUserId(req.user.id)
-      const firstName = req.user.firstName
-      const lastName = req.user.lastName
+    const trips = await getTripsByUserId(req.user!.id)
+    const firstName = req.user!.firstName
+    const lastName = req.user!.lastName
 
-      res.status(200).json({
-        status: res.statusCode,
-        message: `${trips.length} Trips Fetched Successfully For ${firstName} ${lastName}`,
-        trips,
-      })
-    } else {
-      throw new Error('User Not Found, Unable To Fetch Trips.')
-    }
+    res.status(200).json({
+      status: res.statusCode,
+      message: `${trips.length} Trips Fetched Successfully For ${firstName} ${lastName}`,
+      trips,
+    })
   } catch (error) {
     next(error)
   }

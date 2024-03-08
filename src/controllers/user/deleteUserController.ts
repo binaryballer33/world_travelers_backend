@@ -9,17 +9,13 @@ import { deleteUser } from '../../services'
 const deleteUserController = async (req: Request, res: Response, next: NextFunction) => {
   try {
     // use the req.user.id that you got from the decoded token to delete the user
-    if (req.user && req.user.id) {
-      const deletedUser = await deleteUser(req.user.id)
+    const deletedUser = await deleteUser(req.user!.id)
 
-      res.status(200).json({
-        status: res.statusCode,
-        message: `${deletedUser.firstName}, ${deletedUser.lastName} User Deleted Successfully`,
-        deletedUser,
-      })
-    } else {
-      throw new Error('User Not Authorized To Delete This User')
-    }
+    res.status(200).json({
+      status: res.statusCode,
+      message: `${deletedUser.firstName}, ${deletedUser.lastName} User Deleted Successfully`,
+      deletedUser: { ...deletedUser, password: '' }, // don't send real password back
+    })
   } catch (error) {
     next(error)
   }

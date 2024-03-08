@@ -20,19 +20,15 @@ const updateTripController = async (req: Request, res: Response, next: NextFunct
     }
 
     // use the req.user.id that you got from the decoded token to update the user
-    if (req.user && req.user.id) {
-      const updatedUser = await updateUser(req.user.id, validatedUserData)
-      const token = createJwtToken(updatedUser) // decoded token values will be different after updating user
+    const updatedUser = await updateUser(req.user!.id, validatedUserData)
+    const token = createJwtToken(updatedUser) // decoded token values will be different after updating user
 
-      res.status(200).json({
-        status: res.statusCode,
-        message: `${updatedUser.firstName}, ${updatedUser.lastName} User Updated Successfully`,
-        updatedUser: { ...updatedUser, password: '' },
-        token,
-      })
-    } else {
-      throw new Error('User Not Authorized To Update This User')
-    }
+    res.status(200).json({
+      status: res.statusCode,
+      message: `${updatedUser.firstName}, ${updatedUser.lastName} User Updated Successfully`,
+      updatedUser: { ...updatedUser, password: '' },
+      token,
+    })
   } catch (error) {
     next(error)
   }

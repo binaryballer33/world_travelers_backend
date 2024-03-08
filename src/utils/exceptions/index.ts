@@ -1,0 +1,7 @@
+export { default as HttpException } from './HttpException'
+export { default as BadRequestsException } from './BadRequestsException'
+export { default as InternalException } from './InternalException'
+export { default as UnauthorizedException } from './UnauthorizedException'
+export { default as ValidationException } from './ValidationException'
+export { default as NotFoundException } from './NotFoundException'
+export { default as PrismaException } from './PrismaException'

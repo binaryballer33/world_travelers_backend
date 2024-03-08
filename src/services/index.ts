@@ -1,7 +1,5 @@
 import { PrismaClient } from '@prisma/client'
-const prisma = new PrismaClient({
-  log: ['query'],
-})
+const prisma = new PrismaClient()
 
 /* EXPORTING USER SERVICES */
 export { default as getUserByEmail } from './user/getUserByEmail'

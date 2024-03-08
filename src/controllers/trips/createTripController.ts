@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
 import { createTrip } from '../../services'
-import Trip, { TripSchema, TripSchemaNoUserId } from '../../models/tripModel'
+import { TripSchemaNoUserId } from '../../models/tripModel'
 
 /*
  * Trip Route For Creating A New Trip
