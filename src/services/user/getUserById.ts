@@ -7,6 +7,9 @@ const findUserById = async (id: string) => {
     where: {
       id,
     },
+    include: {
+      trips: true,
+    },
   })
 }
 

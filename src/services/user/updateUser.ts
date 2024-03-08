@@ -7,6 +7,7 @@ const updateUser = async (userId: string, user: User | UserOptional) => {
   return await prisma.user.update({
     where: { id: userId },
     data: user,
+    include: { trips: true },
   })
 }
 
