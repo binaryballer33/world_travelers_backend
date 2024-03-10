@@ -1,7 +1,13 @@
-import prisma, { batchCreateVacationPackages, createTrip, createUser, getUserByEmail } from '.'
+import prisma, {
+  batchCreatePopularTrips,
+  createCartItem,
+  createTrip,
+  createUser,
+  getUserByEmail,
+} from '.'
 import chalk from 'chalk'
-import bcrypt from 'bcrypt'
-import { VacationPackage, Trip, User } from '../models'
+import { hashSync } from 'bcrypt'
+import { Trip, User, PopularTrip } from '../models'
 
 /* Dummy Data For Initial Users */
 const users: User[] = [
@@ -41,104 +47,138 @@ const users: User[] = [
 const trips: Trip[] = [
   {
     name: 'Hawaii Trip',
+    description: 'A Beautiful Vacation In Hawaii',
+    imageUrl: 'https://images.unsplash.com/photo-1542259009477-d625272157b7?w=320&h=320',
+    street: '444 Niu St',
     city: 'Honolulu',
     state: 'Hawaii',
     country: 'USA',
-    startDate: '',
-    endDate: '',
-    imageUrl: 'https://images.unsplash.com/photo-1542259009477-d625272157b7?w=320&h=320',
+    startDate: '2023-10-17T00:00:00.000Z',
+    endDate: '2023-10-24T00:00:00.000Z',
+    price: 814.93,
     userId: '',
   },
   {
     name: 'Paris Trip',
+    description: 'A Beautiful Vacation In Paris',
+    imageUrl: 'https://images.unsplash.com/photo-1431274172761-fca41d930114?w320&h=320',
+    street: '6 rue Charlot',
     city: 'Paris',
     state: '',
     country: 'France',
-    startDate: '',
-    endDate: '',
-    imageUrl: 'https://images.unsplash.com/photo-1431274172761-fca41d930114?w320&h=320',
+    startDate: '2023-11-06T00:00:00.000Z',
+    endDate: '2023-11-08T00:00:00.000Z',
+    price: 386.33,
     userId: '',
   },
   {
     name: 'Seoul Trip',
-    city: 'Seoul',
-    state: '',
-    country: 'South Korea',
-    startDate: '',
-    endDate: '',
+    description: 'A Beautiful Vacation In Seoul',
     imageUrl: 'https://images.unsplash.com/photo-1506816561089-5cc37b3aa9b0?w=320&h=320',
+    street: '115 Toegye-ro',
+    city: 'Seoul',
+    state: 'Jung-gu',
+    country: 'South Korea',
+    startDate: '2023-04-01T00:00:00.000Z',
+    endDate: '2023-04-16T00:00:00.000Z',
+    price: 816.92,
     userId: '',
   },
   {
     name: 'Rio De Janeiro Trip',
+    description: 'A Beautiful Vacation In Rio De Janeiro',
+    imageUrl: 'https://images.unsplash.com/photo-1516306580123-e6e52b1b7b5f?w=320&h=320',
+    street: 'Avenida Nossa Senhora de Copacabana, 1369',
     city: 'Rio De Janeiro',
     state: 'Rio De Janeiro',
     country: 'Brazil',
-    startDate: '',
-    endDate: '',
-    imageUrl: 'https://images.unsplash.com/photo-1516306580123-e6e52b1b7b5f?w=320&h=320',
+    startDate: '2023-07-04T00:00:00.000Z',
+    endDate: '2023-07-29T00:00:00.000Z',
+    price: 1435.2,
     userId: '',
   },
   {
     name: 'Los Angeles Trip',
+    description: 'A Beautiful Vacation In Los Angeles',
+    imageUrl: 'https://images.unsplash.com/photo-1609924211018-5526c55bad5b?w=320&h=320',
     city: 'Los Angeles',
+    street: '8755 W Olympic Blvd',
     state: 'California',
     country: 'USA',
-    startDate: '',
-    endDate: '',
-    imageUrl: 'https://images.unsplash.com/photo-1609924211018-5526c55bad5b?w=320&h=320',
+    startDate: '2022-10-22T00:00:00.000Z',
+    endDate: '2022-11-01T00:00:00.000Z',
+    price: 1099.12,
     userId: '',
   },
 ]
 
-/* Dummy Data For Initial Vacation Packages */
-const vacationPackages: VacationPackage[] = [
+/* Dummy Data For Initial Popular Trips */
+const popularTrips: PopularTrip[] = [
   {
     name: 'Hawaii',
     description: 'A Beautiful Vacation In Hawaii',
+    imageUrl: 'https://images.unsplash.com/photo-1542259009477-d625272157b7?w=320&h=320',
+    street: '444 Niu St',
     city: 'Honolulu',
     state: 'Hawaii',
     country: 'USA',
-    price: 2400,
-    imageUrl: 'https://images.unsplash.com/photo-1542259009477-d625272157b7?w=320&h=320',
   },
   {
     name: 'Paris',
     description: 'A Beautiful Vacation In Paris',
+    imageUrl: 'https://images.unsplash.com/photo-1431274172761-fca41d930114?w320&h=320',
+    street: '6 rue Charlot',
     city: 'Paris',
     state: '',
     country: 'France',
-    price: 1200,
-    imageUrl: 'https://images.unsplash.com/photo-1431274172761-fca41d930114?w320&h=320',
   },
   {
     name: 'Seoul',
     description: 'A Beautiful Vacation In Seoul',
+    imageUrl: 'https://images.unsplash.com/photo-1506816561089-5cc37b3aa9b0?w=320&h=320',
+    street: '115 Toegye-ro',
     city: 'Seoul',
     state: '',
     country: 'South Korea',
-    price: 1500,
-    imageUrl: 'https://images.unsplash.com/photo-1506816561089-5cc37b3aa9b0?w=320&h=320',
   },
   {
     name: 'Rio De Janeiro',
     description: 'A Beautiful Vacation In Rio De Janeiro',
+    imageUrl: 'https://images.unsplash.com/photo-1516306580123-e6e52b1b7b5f?w=320&h=320',
+    street: 'Avenida Nossa Senhora de Copacabana, 1369',
     city: 'Rio De Janeiro',
     state: 'Rio De Janeiro',
     country: 'Brazil',
-    price: 1800,
-    imageUrl: 'https://images.unsplash.com/photo-1516306580123-e6e52b1b7b5f?w=320&h=320',
   },
   {
     name: 'Los Angeles',
     description: 'A Beautiful Vacation In Los Angeles',
+    imageUrl: 'https://images.unsplash.com/photo-1609924211018-5526c55bad5b?w=320&h=320',
+    street: '8755 W Olympic Blvd',
     city: 'Los Angeles',
     state: 'California',
     country: 'USA',
-    price: 2000,
-    imageUrl: 'https://images.unsplash.com/photo-1609924211018-5526c55bad5b?w=320&h=320',
   },
 ]
+
+/* Get user id, email and name of each of the initial 5 users */
+async function getUserInfo() {
+  try {
+    // map over the users array and find the user by email
+    const userIds = await Promise.all(
+      users.map(async (user) => {
+        const foundUser = await getUserByEmail(user.email)
+
+        // return an object with the user's name, email, and id
+        return { ...foundUser }
+      })
+    )
+    return userIds
+  } catch (error) {
+    console.log('Error During getUserInfo')
+    throw error
+  }
+}
 
 /* Drop all tables in the database */
 async function dropTables() {
@@ -146,8 +186,10 @@ async function dropTables() {
     console.log(chalk.red('Attempting To Drop Tables'))
 
     // have to make sure to drop tables in correct order to avoid foreign key constraints
-    await prisma.vacationPackage.deleteMany({})
+    await prisma.popularTrip.deleteMany({})
+    await prisma.cartItem.deleteMany({})
     await prisma.trip.deleteMany({})
+    await prisma.cart.deleteMany({})
     await prisma.user.deleteMany({})
 
     console.log(chalk.red('Tables Dropped Successfully'))
@@ -165,7 +207,7 @@ async function createInitialUsers() {
     // map over the users array and create a user for each one
     const usersCreated = await Promise.all(
       users.map(async (user) => {
-        user.password = await bcrypt.hash(user.password, 10)
+        user.password = hashSync(user.password, 10)
         return createUser(user)
       })
     )
@@ -180,38 +222,10 @@ async function createInitialUsers() {
   }
 }
 
-/* Get user id, email and name of each of the initial 5 users */
-async function getUserInfo() {
-  try {
-    // map over the users array and find the user by email
-    const userIds = await Promise.all(
-      users.map(async (user) => {
-        const foundUser = await getUserByEmail(user.email)
-
-        // return an object with the user's name, email, and id
-        return {
-          name: `${foundUser?.firstName} ${foundUser?.lastName}`,
-          email: foundUser?.email,
-          id: foundUser?.id,
-        }
-      })
-    )
-    return userIds
-  } catch (error) {
-    console.log('Error During getUserInfo')
-    throw error
-  }
-}
-
 /* Create the initial 5 trips */
 async function createInitialTrips() {
   try {
     console.log(chalk.yellowBright('Attempting To Create Trips'))
-
-    // create the dates
-    const startDate = new Date()
-    const endDate = new Date()
-    endDate.setDate(startDate.getDate() + 7)
 
     // get the user information
     const userInfo = await getUserInfo() // need this to create trips and assign the trips users
@@ -221,8 +235,8 @@ async function createInitialTrips() {
       trips.map(async (trip, index) =>
         createTrip({
           ...trip,
-          startDate: startDate.toISOString(),
-          endDate: endDate.toISOString(),
+          startDate: trips[index].startDate,
+          endDate: trips[index].endDate,
           userId: userInfo[index].id,
         } as Trip)
       )
@@ -238,20 +252,43 @@ async function createInitialTrips() {
   }
 }
 
-/* Create the initial 5 vacation packages */
-async function createInitialVacationPackages() {
+async function createInitialCartItems() {
   try {
-    console.log(chalk.yellowBright('Attempting To Create Vacation Packages'))
+    console.log(chalk.yellowBright('Attempting To Create Cart Items'))
 
-    // map over the vacationPackages array and create a vacation package for each one
-    const vacationPackagesCreated = await batchCreateVacationPackages(vacationPackages)
+    // get user information need this to create cart items and assign the cart items to users carts
+    const userInfo = await getUserInfo()
+
+    // map over the user information array and create a cart item for each user
+    const cartItems = await Promise.all(
+      // give each user a cart item with their first trip in their cart
+      userInfo.map(async (user) => await createCartItem(user.cart!, user.trips![0] as any))
+    )
 
     console.log(
-      chalk.greenBright('Vacation Packages Created Successfully'),
-      chalk.whiteBright(JSON.stringify(vacationPackagesCreated, null, 2))
+      chalk.greenBright('Cart Items Created Successfully'),
+      chalk.blackBright(JSON.stringify(cartItems, null, 2))
     )
   } catch (error) {
-    console.log('Error During createInitialVacationPackages')
+    console.log('Error During createInitialCartItems')
+    throw error
+  }
+}
+
+/* Create the initial 5 popular trips */
+async function createInitialPopularTrips() {
+  try {
+    console.log(chalk.yellowBright('Attempting To Create Popular Trips'))
+
+    // map over the PopularTrips array and create a Popular Trip for each one
+    const popularTripsCreated = await batchCreatePopularTrips(popularTrips)
+
+    console.log(
+      chalk.greenBright('Popular Trips Created Successfully'),
+      chalk.whiteBright(JSON.stringify(popularTripsCreated, null, 2))
+    )
+  } catch (error) {
+    console.log('Error During createInitialPopularTrips')
     throw error
   }
 }
@@ -260,9 +297,10 @@ async function createInitialVacationPackages() {
 export async function seedDB() {
   try {
     await dropTables()
+    await createInitialPopularTrips()
     await createInitialUsers()
     await createInitialTrips()
-    await createInitialVacationPackages()
+    await createInitialCartItems()
   } catch (error) {
     console.log('Error during seedDB')
     throw error

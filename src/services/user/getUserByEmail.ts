@@ -8,8 +8,8 @@ const getUserByEmail = async (email: string) => {
       email,
     },
     include: {
-      // include the user's trips in the response
       trips: true,
+      cart: true,
     },
   })
 }

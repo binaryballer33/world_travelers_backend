@@ -9,6 +9,7 @@ const findUserById = async (id: string) => {
     },
     include: {
       trips: true,
+      cart: true,
     },
   })
 }
