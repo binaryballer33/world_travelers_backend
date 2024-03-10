@@ -1,6 +1,6 @@
 import { z } from 'zod'
-import { TripSchema } from './tripModel'
-import { CartItemSchema } from './cartItemModel'
+import { TripSchema } from '../trips/tripModel'
+import { CartItemSchema } from '../cartItem/cartItemModel'
 
 export const UserLoginCredentialsSchema = z.object({
   email: z.string().email('Invalid Email Format').min(1, 'Email Must Be At Least 1 Character'),

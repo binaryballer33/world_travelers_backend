@@ -5,5 +5,5 @@ export const CartItemSchema = z.object({
   cartId: z.string().min(1, 'CartId Must Be At Least 1 Character'),
   price: z.number().int().positive().optional(),
 })
-
-export type CartItem = z.infer<typeof CartItemSchema>
+type CartItem = z.infer<typeof CartItemSchema>
+export default CartItem

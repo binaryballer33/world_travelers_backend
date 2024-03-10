@@ -1,5 +1,5 @@
 import prisma from '..'
-import User, { UserOptional } from '../../models/userModel'
+import User, { UserOptional } from '../../models/user/userModel'
 
 /* Creates A New User In The Database */
 const updateUser = async (userId: string, user: User | UserOptional) => {

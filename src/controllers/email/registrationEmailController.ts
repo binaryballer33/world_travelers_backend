@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
 import { Resend } from 'resend'
-import { EmailSchema } from '../../models/email'
+import { EmailSchema } from '../../models/email/emailModel'
 import { RESEND_API_KEY } from '../../utils/secrets'
 
 // Create A New Welcome Email After User Account Registration Email

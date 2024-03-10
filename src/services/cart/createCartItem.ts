@@ -1,6 +1,6 @@
 import prisma from '..'
-import { Cart } from '../../models/cartModel'
-import { TripWithTripId } from '../../models/tripModel'
+import { Cart } from '../../models'
+import { TripWithTripId } from '../../models/trips/tripModel'
 
 /*
  * create a new cart item and update the cart total, if one of the operations fails, the entire transaction * * will be rolled back

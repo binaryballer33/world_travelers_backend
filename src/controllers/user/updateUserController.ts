@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
 import { updateUser } from '../../services'
-import { UserSchemaOptional } from '../../models/userModel'
+import { UserSchemaOptional } from '../../models/user/userModel'
 import { hashSync } from 'bcrypt'
 import { createJwtToken } from '../../utils/helperFunctions'
 

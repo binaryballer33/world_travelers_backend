@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express'
 import { hashSync } from 'bcrypt'
 import { createUser } from '../../services'
-import { UserSchema } from '../../models/userModel'
+import { UserSchema } from '../../models/user/userModel'
 import { createJwtToken } from '../../utils/helperFunctions'
 
 /*

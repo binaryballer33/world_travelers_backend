@@ -1,4 +1,4 @@
-import { UserWithId } from '../models/userModel'
+import { UserWithId } from '../models/user/userModel'
 import jwt from 'jsonwebtoken'
 import { JWT_SECRET } from './secrets'
 

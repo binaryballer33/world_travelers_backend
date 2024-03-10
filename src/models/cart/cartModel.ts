@@ -5,4 +5,5 @@ export const CartSchema = z.object({
   total: z.number().int().positive().optional(),
 })
 
-export type Cart = z.infer<typeof CartSchema>
+type Cart = z.infer<typeof CartSchema>
+export default Cart

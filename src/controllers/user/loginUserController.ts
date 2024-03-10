@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express'
 import { compareSync } from 'bcrypt'
 import { getUserByEmail } from '../../services'
 import { createJwtToken } from '../../utils/helperFunctions'
-import { UserLoginCredentialsSchema } from '../../models/userModel'
+import { UserLoginCredentialsSchema } from '../../models/user/userModel'
 
 /*
  * User Route For Login
