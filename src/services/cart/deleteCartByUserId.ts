@@ -1,6 +1,6 @@
 import prisma from '..'
 
-const deleteCart = async (userId: string) => {
+const deleteCartByUserId = async (userId: string) => {
   return await prisma.cart.delete({
     where: {
       userId,
@@ -8,4 +8,4 @@ const deleteCart = async (userId: string) => {
   })
 }
 
-export default deleteCart
+export default deleteCartByUserId

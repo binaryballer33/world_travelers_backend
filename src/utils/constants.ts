@@ -1,15 +1,4 @@
 export enum ROUTE {
-  // VACATION PACKAGE ROUTES
-  VACATION = '/vacation',
-  VACATION_PACKAGES = '/packages',
-
-  // TRIP ROUTES
-  TRIPS = '/trips',
-  CREATE_TRIP = '/create/trip',
-  GET_TRIP_BY_USER_ID = '/user',
-  UPDATE_TRIP = '/update/trip/:id',
-  DELETE_TRIP = '/delete/trip/:id',
-
   // USER ROUTES
   USER = '/user',
   REGISTER = '/register',
@@ -19,6 +8,30 @@ export enum ROUTE {
   UPDATE_USER = '/update/user',
   DELETE_USER = '/delete/user',
 
+  // TRIP ROUTES
+  TRIPS = '/trips',
+  CREATE_TRIP = '/create/trip',
+  GET_TRIP_BY_USER_ID = '/user',
+  UPDATE_TRIP = '/update/trip/:id',
+  DELETE_TRIP = '/delete/trip/:id',
+
+  // CART ROUTES
+  CART = '/cart',
+  CREATE_CART = '/create/cart',
+  GET_CART = '/get/cart',
+  UPDATE_CART_TOTAL = '/update/cart/total',
+  DELETE_CART = '/delete/cart',
+
+  // CART ITEM ROUTES
+  CART_ITEM = '/cart/item',
+  CREATE_CART_ITEM = '/create/item',
+  DELETE_CART_ITEM = '/delete/item',
+  DELETE_ALL_CART_ITEMS = '/delete/all/items',
+
+  // POPULAR TRIPS ROUTES
+  POPULAR = '/popular',
+  POPULAR_TRIPS = '/trips',
+
   // EMAIL ROUTES
   EMAIL = '/email',
   REGISTRATION_EMAIL = '/registration/email',
@@ -26,8 +39,8 @@ export enum ROUTE {
 }
 
 // VACATION PACKAGE ROUTES
-export function getVacationPackageRoute() {
-  return `${ROUTE.VACATION}${ROUTE.VACATION_PACKAGES}`
+export function getPopularTripsRoute() {
+  return `${ROUTE.POPULAR}${ROUTE.POPULAR_TRIPS}`
 }
 
 // TRIP ROUTES

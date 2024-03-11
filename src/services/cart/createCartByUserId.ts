@@ -1,6 +1,6 @@
 import prisma from '..'
 
-const createCart = async (userId: string) => {
+const createCartByUserId = async (userId: string) => {
   return await prisma.cart.create({
     data: {
       userId,
@@ -9,4 +9,4 @@ const createCart = async (userId: string) => {
   })
 }
 
-export default createCart
+export default createCartByUserId

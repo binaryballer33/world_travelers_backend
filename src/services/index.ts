@@ -16,11 +16,11 @@ export { default as updateTrip } from './trips/updateTrip'
 export { default as deleteTrip } from './trips/deleteTrip'
 
 /* EXPORTING CART SERVICES */
-export { default as createCart } from './cart/createCart'
+export { default as createCartByUserId } from './cart/createCartByUserId'
 export { default as getAllCarts } from './cart/getAllCarts'
-export { default as getCart } from './cart/getCart'
+export { default as getCartByUserId } from './cart/getCartByUserId'
 export { default as updateCartTotal } from './cart/updateCartTotal'
-export { default as deleteCart } from './cart/deleteCart'
+export { default as deleteCartByUserId } from './cart/deleteCartByUserId'
 
 /* EXPORTING CART ITEM SERVICES */
 export { default as getCartItemById } from './cartItem/getCartItemById'
@@ -30,7 +30,7 @@ export { default as deleteAllCartItemsByCartId } from './cartItem/deleteAllCartI
 
 /* EXPORTING VACATION PACKAGE SERVICES */
 export { default as batchCreatePopularTrips } from './popularTrips/batchCreatePopularTrips'
-export { default as getAllVacationPackages } from './popularTrips/getAllVacationPackages'
+export { default as getAllPopularTrips } from './popularTrips/getAllPopularTrips'
 
 /* EXPORTING PRISMA CLIENT */
 export default prisma

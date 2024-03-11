@@ -1,6 +1,6 @@
 import prisma from '..'
 
-const getCart = async (userId: string) => {
+const getCartByUserId = async (userId: string) => {
   return await prisma.cart.findUnique({
     where: {
       userId,
@@ -8,4 +8,4 @@ const getCart = async (userId: string) => {
   })
 }
 
-export default getCart
+export default getCartByUserId

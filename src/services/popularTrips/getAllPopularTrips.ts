@@ -1,7 +1,7 @@
 import prisma from '..'
 
-const getAllVacationPackages = async () => {
+const getAllPopularTrips = async () => {
   return await prisma.popularTrip.findMany() // get all vacation packages from the database
 }
 
-export default getAllVacationPackages
+export default getAllPopularTrips
