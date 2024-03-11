@@ -16,8 +16,17 @@ export { default as updateTrip } from './trips/updateTrip'
 export { default as deleteTrip } from './trips/deleteTrip'
 
 /* EXPORTING CART SERVICES */
+export { default as createCart } from './cart/createCart'
 export { default as getAllCarts } from './cart/getAllCarts'
-export { default as createCartItem } from './cart/createCartItem'
+export { default as getCart } from './cart/getCart'
+export { default as updateCartTotal } from './cart/updateCartTotal'
+export { default as deleteCart } from './cart/deleteCart'
+
+/* EXPORTING CART ITEM SERVICES */
+export { default as getCartItemById } from './cartItem/getCartItemById'
+export { default as createCartItem } from './cartItem/createCartItem'
+export { default as deleteCartItem } from './cartItem/deleteCartItem'
+export { default as deleteAllCartItemsByCartId } from './cartItem/deleteAllCartItemsByCartId'
 
 /* EXPORTING VACATION PACKAGE SERVICES */
 export { default as batchCreatePopularTrips } from './popularTrips/batchCreatePopularTrips'
