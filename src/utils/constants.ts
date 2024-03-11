@@ -19,7 +19,6 @@ export enum ROUTE {
   CART = '/cart',
   CREATE_CART = '/create/cart',
   GET_CART = '/get/cart',
-  UPDATE_CART_TOTAL = '/update/cart/total',
   DELETE_CART = '/delete/cart',
 
   // CART ITEM ROUTES

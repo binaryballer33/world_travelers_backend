@@ -19,7 +19,6 @@ export { default as deleteTrip } from './trips/deleteTrip'
 export { default as createCartByUserId } from './cart/createCartByUserId'
 export { default as getAllCarts } from './cart/getAllCarts'
 export { default as getCartByUserId } from './cart/getCartByUserId'
-export { default as updateCartTotal } from './cart/updateCartTotal'
 export { default as deleteCartByUserId } from './cart/deleteCartByUserId'
 
 /* EXPORTING CART ITEM SERVICES */

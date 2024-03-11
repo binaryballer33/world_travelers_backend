@@ -8,7 +8,6 @@ export { default as deleteUserController } from './user/deleteUserController'
 /* CART CONTROLLERS */
 export { default as createCartController } from './cart/createCartController'
 export { default as getCartController } from './cart/getCartController'
-export { default as updateCartTotalController } from './cart/updateCartTotalController'
 export { default as deleteCartController } from './cart/deleteCartController'
 
 /* CART ITEM CONTROLLERS */
