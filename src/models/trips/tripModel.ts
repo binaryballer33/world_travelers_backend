@@ -15,6 +15,7 @@ export const TripSchema = z.object({
   // so that it can be optional, allowing you to save unfinished trips to your saved trips
   price: z.number().positive().default(0),
 })
+
 export const TripWithTripIdSchema = TripSchema.extend({
   id: z.string().uuid(),
 })
