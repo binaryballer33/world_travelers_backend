@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
-import { createCartItem, getUserById } from '../../services'
-import { CartItemSchema, CreateCartItemSchema } from '../../models/cartItem/cartItemModel'
+import { createCartItem } from '../../services'
+import { CreateCartItemSchema } from '../../models/cartItem/cartItemModel'
 
 // Create A New Purchase Confirmation Email
 const createCartItemController = async (req: Request, res: Response, next: NextFunction) => {
