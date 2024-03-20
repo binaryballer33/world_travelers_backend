@@ -43,9 +43,6 @@ function errorHandler(error: any, _req: Request, res: Response, _next: NextFunct
   return res.status(exception.status).json({
     ...exception,
     message: exception.message,
-    errorStack: error.stack,
-    error: error,
-    exception: exception,
   })
 }
 
