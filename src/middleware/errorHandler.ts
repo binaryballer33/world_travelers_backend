@@ -39,21 +39,13 @@ function errorHandler(error: any, _req: Request, res: Response, _next: NextFunct
     exception = new InternalException('An Unexpected Error Occurred', error)
   }
 
-  console.log(
-    '***************************************EXCEPTION***************************************'
-  )
-  console.error(exception)
-  console.log('***************************************ERROR***************************************')
-  console.error(error)
-  console.log(
-    '***************************************ERROR STACK***************************************'
-  )
-  console.error(error.stack)
-
   // Return The Error To The User
   return res.status(exception.status).json({
     ...exception,
     message: exception.message,
+    errorStack: error.stack,
+    error: error,
+    exception: exception,
   })
 }
 
